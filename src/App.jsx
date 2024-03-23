@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import moment from 'moment';
 
 function App() {
   const [records, setRecords] = useState([]);
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
   const [duration, setDuration] = useState('');
-
+  
   const apiKey= import.meta.env.VITE_AIRTABLE_API_KEY;
 
   useEffect(() => {
@@ -143,7 +144,7 @@ const response = await axios.post(
         <ul>
           {records.map(record => (
             <li key={record.id}>
-              Title: {record.fields.Title}, Type: {record.fields.Type}, Duration: {convertSecondsToHMM(record.fields.Duration)},
+              Title: {record.fields.Title}, Type: {record.fields.Type}, Duration: {convertSecondsToHMM(record.fields.Duration)}, Time: {moment(record.createdTime).format('MMMM Do YYYY, h:mm:ss a')},
               <button onClick={()=> handleDelete(record.id)}>Delete</button>
             </li>
           ))}
