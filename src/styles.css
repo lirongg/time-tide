@@ -1,0 +1,29 @@
+.countdown .content{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin:auto;
+    gap: 30px;
+}
+
+.countdown .box{
+    width: calc(100% /3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    max-width: 150px;
+}
+
+.countdown .value{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    box-shadow: -2px 0px 5px 1px;
+}

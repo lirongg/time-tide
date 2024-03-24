@@ -1,3 +1,7 @@
-Add countdownTimer
-move form to another page
-move timer to another page
+Countdown Timer to show on a page by itself(this is done)
+Countdown Timer to read data from dropdown box (YAY)
+Countdown Timer dont go to negative (DONE BECAUSE WILL RETURN)
+When stop is clicked, show the total time in Summary (this is done)
+App should only show the button and summary (this is done)
+Countdown Timer to ring when time is up
+when click stop, the duration should only show the time spent
