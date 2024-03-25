@@ -1,8 +1,9 @@
-// App.jsx
 import React, { useState } from 'react';
+import './App.css'; // Import your CSS file
 import FocusFormPage from './FocusFormPage';
 import CountdownTimerPage from './CountdownTimerPage';
-import AirtableData from './AirtableData'; // Import AirtableData component
+import AirtableData from './AirtableData'; 
+import SummaryBox from './SummaryBox';
 
 function App() {
   const [showFormPage, setShowFormPage] = useState(false);
@@ -12,6 +13,7 @@ function App() {
   const [displayFormData, setDisplayFormData] = useState(false);
   const [showTimerPage, setShowTimerPage] = useState(false);
   const [showFocusSessionPage, setShowFocusSessionPage] = useState(true);
+  const [records, setRecords] = useState([]);
 
   const apiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
 
@@ -31,12 +33,21 @@ function App() {
     setShowTimerPage(false);
   };
 
+  // Calculate session count, record count, and total duration
+  const sessionCount = showTimerPage ? 1 : 0;
+  const recordCount = records.length;
+  const totalDuration = records.reduce((acc, record) => acc + record.fields.Duration, 0);
+
   return (
-    <>
-      <h1>Time Tide</h1>
-      {showFocusSessionPage && !showFormPage && ( // Conditionally render the button
-        <button onClick={() => setShowFormPage(true)}>+ New Focus Session</button>
-      )}
+    <div className="app-container">
+      <div className="header">
+        <h1>Time Tide</h1>
+      </div>
+      <div className="button-container">
+        {showFocusSessionPage && !showFormPage && (
+          <button onClick={() => setShowFormPage(true)}>+ New Focus Session</button>
+        )}
+      </div>
       {showFormPage ? (
         <FocusFormPage onFormSubmit={handleFormSubmit} apiKey={apiKey} />
       ) : showTimerPage ? (
@@ -46,9 +57,14 @@ function App() {
           formData={formData}
         />
       ) : (
-        <AirtableData apiKey={apiKey} />
+        <div className="summary-airtable-wrapper">
+          <SummaryBox sessionCount={sessionCount} recordCount={recordCount} totalDuration={totalDuration} />
+          <div className="airtable-wrapper">
+            <AirtableData apiKey={apiKey} />
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./App.css";
 import moment from 'moment';
 
 const apiKey= import.meta.env.VITE_AIRTABLE_API_KEY;
@@ -66,7 +67,16 @@ const AirtableData = ({ apiKey }) => {
       <ul>
         {records.map((record) => (
           <li key={record.id}>
-            Title: {record.fields.Title}, Type: {record.fields.Type}, Duration: {convertSecondsToHMM(record.fields.Duration)}, Time: {moment(record.createdTime).format('MMMM Do YYYY, h:mm:ss a')},
+          <div>
+          <strong><em>{moment(record.createdTime).format('MMMM Do YYYY, h:mm:ss a')}</em></strong></div>
+          <div>
+            <strong>{record.fields.Title}</strong> </div>
+            <div>
+            Type: {record.fields.Type}
+            </div>
+            <div>
+            {convertSecondsToHMM(record.fields.Duration)}
+            </div>
             <button onClick={() => handleDelete(record.id)}>Delete</button>
           </li>
         ))}
