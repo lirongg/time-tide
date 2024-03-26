@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom'; // Import useHistory
 import './styles.css';
 
 const CountdownTimerPage = ({ onTimerStop, formData, updateElapsedTime }) => {
+  const history = useHistory(); // Initialize useHistory
+
   const { selectedTime } = useParams(); // Get the selectedTime parameter from the URL
 
   const convertDurationToSeconds = (duration) => {
+    if (!duration) {
+      console.error('Duration is empty or undefined');
+      return 0; // Return default value or handle the error as per your requirement
+    }
     const [hours, minutes, seconds] = duration.split(':');
     return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
   };
@@ -58,10 +64,8 @@ const CountdownTimerPage = ({ onTimerStop, formData, updateElapsedTime }) => {
     setElapsedTime(elapsedSeconds);
     onTimerStop(elapsedSeconds); // Pass elapsed time to the parent component
   
-    // Log elapsedTime after it has been updated
-    setTimeout(() => {
-      console.log('Timer stopped. Elapsed time:', elapsedSeconds);
-    }, 0); // Using setTimeout to log after the state update
+    // Redirect back to App.jsx after stopping the timer
+    history.push('/');
   };
 
   return (

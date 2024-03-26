@@ -94,7 +94,7 @@ function App() {
         </div>
         <Switch>
           <Route path="/focus-form">
-            <FocusFormPage onFormSubmit={handleFormSubmit} />
+            <FocusFormPage onFormSubmit={handleFormSubmit} apiKey={apiKey} />
           </Route>
           <Route path="/countdown-timer">
             <CountdownTimerPage

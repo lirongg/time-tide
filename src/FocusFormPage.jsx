@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import "./Form.css"
 
-const apiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
-
 const FocusFormPage = ({ onFormSubmit, apiKey }) => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
@@ -40,13 +38,13 @@ const FocusFormPage = ({ onFormSubmit, apiKey }) => {
       const response = await axios.post(
         'https://api.airtable.com/v0/appcMpChnXdqCV4qt/Table%201',
         {
-          fields: { Title: title, Type: type, Duration: durationInSeconds, ElapsedTime: 0 },// Initialize elapsed time
+          fields: { Title: title, Type: type, Duration: durationInSeconds },// Initialize elasped time
         },
         {
           headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         }
       );
-  
+
       if (response.status === 200) {
         setTitle('');
         setType('');
