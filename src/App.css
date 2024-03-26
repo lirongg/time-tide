@@ -15,7 +15,6 @@ h1 {
   align-items: center;
 }
 
-
 .read-the-docs {
   color: #888;
 }
@@ -51,7 +50,13 @@ h1 {
 .app-container {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+  height: 100vh; /* Set height to fill the viewport height */
+  overflow-y: auto; /* Allow vertical scrolling if content exceeds viewport height */
+  width: 100%;
 }
+
+
 
 .summary-airtable-wrapper {
   width: 100%; /* Ensure the wrapper takes up the full width */
@@ -59,15 +64,22 @@ h1 {
   margin-bottom: 80px; /* Add margin at the bottom */
 }
 
+.summary-box p{
+  text-align: center; /* Center text inside the summary box */
+}
+
+h2 {
+  text-align: center;
+  font-weight: 500;
+}
+
 .summary-box,
 .airtable-wrapper {
   flex: 1; /* Make both components grow to fill the available horizontal space */
   border: 1px solid #ccc;
   padding: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 0 10px; /* Add margin around both components */
 }
-
 
 .main-content {
   max-width: 1280px; /* Set maximum width */
@@ -81,15 +93,8 @@ h1 {
   justify-content: flex-start; /* Align header to the top left */
   align-items: center;
   margin-bottom: 20px;
-  margin-left:20px;
+  margin-left: 20px;
   font-size: smaller;
-}
-
-.app-container {
-  width: 100%; /* Ensure the container takes up the full width */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center the content horizontally */
 }
 
 .button-container {
@@ -97,5 +102,11 @@ h1 {
   display: flex;
   justify-content: center; /* Align button to the center */
   margin-bottom: 30px;
+}
+
+.airtable-box {
+  display:flex;
+  margin-bottom: -50px;
+  margin-top: 0px;
 }
 
