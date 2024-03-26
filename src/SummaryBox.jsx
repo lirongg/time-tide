@@ -1,6 +1,6 @@
 import React from "react";
 
-function SummaryBox({ recordCount, totalDuration }) {
+function SummaryBox({ recordCount, totalDuration, elapsedTime }) {
   const sessionCount = recordCount; // Assuming each record represents a session
 
   // Function to convert total duration from seconds to h:mm format
@@ -17,7 +17,8 @@ function SummaryBox({ recordCount, totalDuration }) {
     <div className="summary-box">
       <h2>Summary</h2>
       <p>Sessions: {sessionCount}</p>
-      <p>Total Duration: {convertSecondsToHMM(totalDuration)}</p>
+      <p>Total Planned Time: {convertSecondsToHMM(totalDuration)}</p>
+      <p>Total Actual Time Spent: {convertSecondsToHMM(elapsedTime)}</p>
     </div>
   );
 }

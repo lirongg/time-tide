@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom'; // Import useHistory
+import { useHistory } from 'react-router-dom';
 import './styles.css';
+import axios from 'axios';
 
-const CountdownTimerPage = ({ onTimerStop, formData, updateElapsedTime }) => {
+const CountdownTimerPage = ({ selectedTime, onTimerStop, apiKey, latestRecordId }) => {
   const history = useHistory(); // Initialize useHistory
 
-  const { selectedTime } = useParams(); // Get the selectedTime parameter from the URL
-
   const convertDurationToSeconds = (duration) => {
-    if (!duration) {
-      console.error('Duration is empty or undefined');
-      return 0; // Return default value or handle the error as per your requirement
-    }
     const [hours, minutes, seconds] = duration.split(':');
     return parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
   };
@@ -33,7 +28,6 @@ const CountdownTimerPage = ({ onTimerStop, formData, updateElapsedTime }) => {
   };
 
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
-  const [elapsedTime, setElapsedTime] = useState(0); // Track elapsed time
   const [intervalId, setIntervalId] = useState(null);
   const [ringing, setRinging] = useState(false);
 
@@ -44,11 +38,8 @@ const CountdownTimerPage = ({ onTimerStop, formData, updateElapsedTime }) => {
       if (timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
         clearInterval(intervalId);
         setRinging(true);
-        setTimeout(() => {
-          setRinging(false);
-          onTimerStop(elapsedTime); // Pass the elapsed time to onTimerStop
-          updateElapsedTime(elapsedTime); // Update the elapsed time in App.jsx
-        }, 20000); // Ring for 20 seconds
+          handleStop(); // Call handleStop when timer reaches zero
+      
       }
     }, 1000);
     setIntervalId(id);
@@ -56,17 +47,38 @@ const CountdownTimerPage = ({ onTimerStop, formData, updateElapsedTime }) => {
     return () => clearInterval(id);
   }, []);
 
-  const handleStop = () => {
+  const handleStop = async () => {
     clearInterval(intervalId);
-    // Calculate elapsed time in seconds
-    const elapsedSeconds =
-      selectedDuration - (timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds);
-    setElapsedTime(elapsedSeconds);
-    onTimerStop(elapsedSeconds); // Pass elapsed time to the parent component
-  
-    // Redirect back to App.jsx after stopping the timer
-    history.push('/');
+    const elapsedSeconds = selectedDuration - (timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds); // Calculate elapsed time
+    try {
+      // Update ElapsedTime field in Airtable
+      await axios.patch(
+        `https://api.airtable.com/v0/appcMpChnXdqCV4qt/Table%201`, 
+        {
+          records: [
+            {
+              id: latestRecordId,
+              fields: {
+                ElapsedTime: elapsedSeconds
+              }
+            }
+          ]
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      // Redirect back to App.jsx after stopping the timer
+      history.push('/');
+    } catch (error) {
+      console.error('Error updating ElapsedTime:', error);
+    }
   };
+
 
   return (
     <div>

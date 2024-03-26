@@ -20,13 +20,15 @@ h1 {
 }
 
 .airtable-wrapper {
+  width: 100%; /* Ensure both components take up the full width */
   border: 1px solid #ccc;
-  padding: 10px;
-  margin-left: 20px;
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  margin-bottom: 20px; 
 }
 
 .card {
   padding: 2em;
+  margin-top: -5em;
 }
 
 .card ul {
@@ -59,9 +61,10 @@ h1 {
 
 
 .summary-airtable-wrapper {
-  width: 100%; /* Ensure the wrapper takes up the full width */
   display: flex;
+  flex-direction: column; /* Display items in a column */
   margin-bottom: 80px; /* Add margin at the bottom */
+  width: 90%;
 }
 
 .summary-box p{
@@ -73,13 +76,13 @@ h2 {
   font-weight: 500;
 }
 
-.summary-box,
-.airtable-wrapper {
-  flex: 1; /* Make both components grow to fill the available horizontal space */
+.summary-box {
+  width: 100%; /* Ensure both components take up the full width */
   border: 1px solid #ccc;
-  padding: 10px;
-  margin: 0 10px; /* Add margin around both components */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  margin-bottom: 20px; /* Add margin between the summary box and Airtable wrapper */
 }
+
 
 .main-content {
   max-width: 1280px; /* Set maximum width */

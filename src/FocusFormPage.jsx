@@ -64,6 +64,10 @@ const FocusFormPage = ({ onFormSubmit, apiKey }) => {
     }
   };
 
+  const handleCancel =() => {
+    history.push('/');
+  }
+
 
   return (
     <div className="form">
@@ -86,6 +90,7 @@ const FocusFormPage = ({ onFormSubmit, apiKey }) => {
           </select>
         </div>
         <button type="submit">Submit</button>
+        <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
       </form>
     </div>
   );

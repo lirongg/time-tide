@@ -18,7 +18,7 @@ body {
     color: #eee;
     font-size: 32px;
     font-weight: 200;
-    margin-top: 30px;
+    margin-top: 10px;
   }
   
   
@@ -100,22 +100,12 @@ body {
     color: #dc2f55;
   }
   
-  .submit {
-    background-color: #08d;
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color: #eee;
-    cursor: pointer;
-    font-size: 18px;
-    height: 50px;
-    margin-top: 38px;
-    outline: 0;
-    text-align: center;
-    width: 100%;
-  }
   
-  .submit:active {
-    background-color: #06b;
+  .cancel-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #007bff; /* Change color to your preference */
   }
   

@@ -9,39 +9,14 @@ Css on the form (this is done)
 Delete all button (this is done)
 need to use routes (this isd done)
 
+Need to fix the timer to read selectedtime again (this is ok)
+
+when click stop, the duration should only show the time spent (this isok)
+
+
 Countdown Timer to ring when time is up
-when click stop, the duration should only show the time spent 
+SUmmary to add actual time
+Fix the nan timer
+session to sort latst to oldesr (this is done)
 
-
-
-Used at least one API: Yes, you used the Airtable API to fetch and manipulate data.
-
-Have at least 5 components: You have the following components:
-
-App
-CountdownTimer
-CountdownTimerPage
-FocusFormPage
-AirtableData
-So, you have 5 components, meeting this requirement.
-
-Have at least 2 useState and 1 lifting state: You have used multiple useState hooks in your components:
-
-App component: 7 useState hooks
-CountdownTimer component: 2 useState hooks
-FocusFormPage component: 3 useState hooks
-AirtableData component: 1 useState hook
-So, you have used more than 2 useState hooks. Additionally, you have lifting state up in the App component, passing data from FocusFormPage to CountdownTimerPage through App component.
-
-Have at least 4 props: Your components receive props:
-
-App component: apiKey
-CountdownTimerPage component: selectedTime, onTimerStop, formData
-FocusFormPage component: onFormSubmit, apiKey
-AirtableData component: apiKey
-So, you have at least 4 props being passed to different components.
-
-Used at least 2 routes: There are no explicit routes defined in your code. It seems like you're conditionally rendering components based on state in the App component. If you intended to have routes, you'll need to use a routing library like React Router and define routes explicitly.
-
-App looks and feels similar to apps we use on a daily basis - it has a consistent and polished user interface: This is subjective and can only be determined by a user interacting with your application. From a code perspective, you have structured your components well and used appropriate styling. However, the user interface's consistency and polish can only be assessed through user testing and feedback.
 

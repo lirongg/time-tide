@@ -25,8 +25,12 @@ const AirtableData = ({ apiKey, onDeleteAll }) => {
       if (response.status !== 200) {
         throw new Error("Failed to fetch data from Airtable");
       }
+ // Sort records by the latest createdTime
+ const sortedRecords = response.data.records.sort((a, b) =>
+ moment(a.createdTime).isBefore(moment(b.createdTime)) ? 1 : -1
+);
 
-      setRecords(response.data.records);
+setRecords(sortedRecords);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
