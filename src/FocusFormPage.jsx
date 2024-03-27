@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import "./Form.css"
+import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import "./Form.css";
 
-const FocusFormPage = ({ onFormSubmit, apiKey }) => {
-  const [title, setTitle] = useState('');
-  const [type, setType] = useState('');
-  const [duration, setDuration] = useState('');
+const FocusFormPage = ({ apiKey, onSubmitSuccess }) => {
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState("");
+  const [duration, setDuration] = useState("");
   const history = useHistory(); // Initialize useHistory
-  
 
   const generateDurationOptions = () => {
     const options = [];
     for (let hours = 0; hours <= 12; hours++) {
       for (let minutes = 0; minutes < 60; minutes++) {
-        for (let seconds = 0; seconds < 60; seconds += 5) { // Include seconds starting from 0 and incrementing by 5
+        for (let seconds = 0; seconds < 60; seconds += 5) {
+          // Include seconds starting from 0 and incrementing by 5
           const totalSeconds = hours * 3600 + minutes * 60 + seconds;
           options.push(
-            <option key={totalSeconds} value={`${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}>
-              {hours > 0 ? `${hours} hours` : ''} {minutes > 0 ? `${minutes} minutes` : ''} {seconds > 0 ? `${seconds} seconds` : ''}
+            <option
+              key={totalSeconds}
+              value={`${hours}:${minutes.toString().padStart(2, "0")}:${seconds
+                .toString()
+                .padStart(2, "0")}`}
+            >
+              {hours > 0 ? `${hours} hours` : ""}{" "}
+              {minutes > 0 ? `${minutes} minutes` : ""}{" "}
+              {seconds > 0 ? `${seconds} seconds` : ""}
             </option>
           );
         }
@@ -27,70 +34,99 @@ const FocusFormPage = ({ onFormSubmit, apiKey }) => {
     return options;
   };
 
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = { title, type, duration };
-  
+
     try {
-      const [hours, minutes, seconds] = duration.split(':');
-      const durationInSeconds = parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
-  
+      const [hours, minutes, seconds] = duration.split(":");
+      const durationInSeconds =
+        parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
+
       const response = await axios.post(
-        'https://api.airtable.com/v0/appcMpChnXdqCV4qt/Table%201',
+        "https://api.airtable.com/v0/appcMpChnXdqCV4qt/Table%201",
         {
-          fields: { Title: title, Type: type, Duration: durationInSeconds },// Initialize elasped time
+          fields: { Title: title, Type: type, Duration: durationInSeconds }, // Initialize elasped time
         },
         {
-          headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
         }
       );
 
       if (response.status === 200) {
-        setTitle('');
-        setType('');
-        setDuration('');
-        onFormSubmit(response.data, duration); // Pass duration to onFormSubmit
+        setTitle("");
+        setType("");
+        setDuration("");
+        onSubmitSuccess(duration);
+        console.log("focus Selected time:", duration);
         // Redirect to the countdown timer page
-        history.push('/countdown-timer');
+        history.push("/countdown-timer", {selectedTime: duration});
       } else {
-        console.error('Failed to upload data to Airtable:', response.status);
+        console.error("Failed to upload data to Airtable:", response.status);
         // Show error message to the user
       }
     } catch (error) {
-      console.error('Error uploading data:', error);
+      console.error("Error uploading data:", error);
       // Log detailed error information
-      console.error('Error details:', error.response.data);
-      console.error('Status code:', error.response.status);
+      console.error("Error details:", error.response.data);
+      console.error("Status code:", error.response.status);
     }
   };
 
-  const handleCancel =() => {
-    history.push('/');
-  }
-
+  const handleCancel = () => {
+    history.push("/");
+  };
 
   return (
     <div className="form">
       <div className="title">New Focus Session</div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <div className="input-container ic1">
-          <input id="title" className="input" type="text" placeholder=" " value={title} onChange={(e) => setTitle(e.target.value)}/>
+          <input
+            id="title"
+            className="input"
+            type="text"
+            placeholder=" "
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <div className="cut"></div>
-          <label htmlFor="title" className="placeholder">Title</label>
+          <label htmlFor="title" className="placeholder">
+            Title
+          </label>
         </div>
         <div className="input-container ic2">
-          <input id="type" className="input" type="text" placeholder=" " value={type} onChange={(e) => setType(e.target.value)} />
+          <input
+            id="type"
+            className="input"
+            type="text"
+            placeholder=" "
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          />
           <div className="cut"></div>
-          <label htmlFor="type" className="placeholder">Type</label>
+          <label htmlFor="type" className="placeholder">
+            Type
+          </label>
         </div>
         <div className="input-container ic3">
-          <select id="duration" className="input" value={duration} onChange={(e) => setDuration(e.target.value)}>
+          <select
+            id="duration"
+            className="input"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+          >
             <option value="">Select Duration</option>
             {generateDurationOptions()}
           </select>
         </div>
         <button type="submit">Submit</button>
-        <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+        <button type="button" onClick={handleCancel} className="cancel-button">
+          Cancel
+        </button>
       </form>
     </div>
   );

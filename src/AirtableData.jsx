@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./App.css";
 import moment from "moment";
+import "./App.css";
 
-const AirtableData = ({ apiKey, onDeleteAll }) => {
+const AirtableData = ({ apiKey }) => {
   const [records, setRecords] = useState([]);
 
   useEffect(() => {
@@ -25,17 +25,18 @@ const AirtableData = ({ apiKey, onDeleteAll }) => {
       if (response.status !== 200) {
         throw new Error("Failed to fetch data from Airtable");
       }
- // Sort records by the latest createdTime
- const sortedRecords = response.data.records.sort((a, b) =>
- moment(a.createdTime).isBefore(moment(b.createdTime)) ? 1 : -1
-);
+      // Sort records by createdTime in descending order using Moment.js
+      const sortedRecords = response.data.records.sort((a, b) =>
+        moment(a.createdTime).isBefore(moment(b.createdTime)) ? 1 : -1
+      );
 
-setRecords(sortedRecords);
+      setRecords(sortedRecords);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
+  // Function to delete a single record
   const handleDelete = async (id) => {
     try {
       console.log("Deleting record with id:", id);
@@ -49,7 +50,6 @@ setRecords(sortedRecords);
       );
 
       if (response.status === 200) {
-        // Refresh data after successful delete
         fetchAirtableData();
       } else {
         console.error(
@@ -62,9 +62,9 @@ setRecords(sortedRecords);
     }
   };
 
+  // Function to delete all records
   const handleDeleteAll = async () => {
     try {
-      console.log("Deleting all records...");
       // Iterate over each record and delete it individually
       for (const record of records) {
         const response = await axios.delete(
@@ -80,15 +80,15 @@ setRecords(sortedRecords);
           console.error("Failed to delete record:", record.id);
         }
       }
-      // Fetch data again after successful deletion
       fetchAirtableData();
     } catch (error) {
       console.error("Error deleting all records:", error);
     }
   };
+  
 
   // Function to convert duration from seconds to h:mm:ss format
-  const convertSecondsToHMM = (seconds) => {
+  const convertSecondsToHMMSS = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
@@ -120,8 +120,8 @@ setRecords(sortedRecords);
                 <strong>{record.fields.Title}</strong>
               </div>
               <div>Type: {record.fields.Type}</div>
-              <div>{convertSecondsToHMM(record.fields.Duration)}</div>
-              <div>{convertSecondsToHMM(record.fields.ElapsedTime)}</div>
+              <div>{convertSecondsToHMMSS(record.fields.Duration)}</div>
+              <div>{convertSecondsToHMMSS(record.fields.ElapsedTime)}</div>
               <button onClick={() => handleDelete(record.id)}>Delete</button>
             </li>
           ))}
