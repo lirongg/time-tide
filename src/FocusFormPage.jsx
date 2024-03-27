@@ -92,6 +92,7 @@ const FocusFormPage = ({ apiKey, onSubmitSuccess }) => {
             placeholder=" "
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required // Add required attribute
           />
           <div className="cut"></div>
           <label htmlFor="title" className="placeholder">
@@ -118,6 +119,7 @@ const FocusFormPage = ({ apiKey, onSubmitSuccess }) => {
             className="input"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
+            required // Add required attribute
           >
             <option value="">Select Duration</option>
             {generateDurationOptions()}
