@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 function SummaryBox({ apiKey, refreshKey }) {
   const [records, setRecords] = useState([]);
@@ -30,12 +30,17 @@ function SummaryBox({ apiKey, refreshKey }) {
 
       setTotalDuration(totalDurationFromRecords);
 
+      // Calculate total elapsed time from records
+      const totalElapsedTimeFromRecords = data.records.reduce((total, record) => {
+        return total + record.fields.ElapsedTime;
+      }, 0);
+      setElapsedTime(totalElapsedTimeFromRecords);
+
       // Find the record with the latest createdTime
       if (data.records.length > 0) {
         const latestRecord = data.records.reduce((prev, current) =>
           prev.createdTime > current.createdTime ? prev : current
         );
-        console.log("Latest Record:", latestRecord);
         setLatestRecordId(latestRecord.id);
       }
     } catch (error) {
@@ -52,8 +57,6 @@ function SummaryBox({ apiKey, refreshKey }) {
       remainingSeconds < 10 ? "0" : ""
     }${remainingSeconds}`;
   };
-
-  
 
   return (
     <div className="summary-box">

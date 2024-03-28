@@ -9,7 +9,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import FocusSessionButton from "./FocusSessionButton"; // Import the new component
 
 function App() {
-  const [formData, setFormData] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [timerEnded, setTimerEnded] = useState(false);
   const [ringing, setRinging] = useState(false);
@@ -38,7 +37,6 @@ function App() {
             <FocusFormPage
               apiKey={apiKey}
               onSubmitSuccess={(duration) => {
-                console.log("selectedTime in App.jsx:", duration);
                 setSelectedTime(duration);
                 setRefreshKey((prevKey) => prevKey + 1);
               }}
@@ -50,6 +48,7 @@ function App() {
               onAlarmStop={handleStopAlarm}
               timerEnded={timerEnded}
               onTimerStop={handleTimerStop}
+              apiKey={apiKey}
             />
           </Route>
           <Route path="/">

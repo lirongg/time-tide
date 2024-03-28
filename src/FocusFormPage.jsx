@@ -61,7 +61,6 @@ const FocusFormPage = ({ apiKey, onSubmitSuccess }) => {
         setType("");
         setDuration("");
         onSubmitSuccess(duration);
-        console.log("focus Selected time:", duration);
         // Redirect to the countdown timer page
         history.push("/countdown-timer", {selectedTime: duration});
       } else {

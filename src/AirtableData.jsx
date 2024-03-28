@@ -12,7 +12,6 @@ const AirtableData = ({ apiKey }) => {
 
   const fetchAirtableData = async () => {
     try {
-      console.log("Fetching Airtable data...");
       const response = await axios.get(
         "https://api.airtable.com/v0/appcMpChnXdqCV4qt/Table%201",
         {
@@ -39,7 +38,6 @@ const AirtableData = ({ apiKey }) => {
   // Function to delete a single record
   const handleDelete = async (id) => {
     try {
-      console.log("Deleting record with id:", id);
       const response = await axios.delete(
         `https://api.airtable.com/v0/appcMpChnXdqCV4qt/Table%201/${id}`,
         {

@@ -12,7 +12,6 @@ const CountdownLogic = ({ selectedTime, onAlarmStop }) => {
       COUNTDOWN_TARGET.getSeconds() + selectedDuration
     );
 
-    console.log("Countdown started. Target time:", COUNTDOWN_TARGET);
 
     const id = setInterval(() => {
       const totalTimeLeft = COUNTDOWN_TARGET - new Date();
@@ -26,7 +25,6 @@ const CountdownLogic = ({ selectedTime, onAlarmStop }) => {
         const minutes = Math.floor((totalTimeLeft / (1000 * 60)) % 60);
         const seconds = Math.floor((totalTimeLeft / 1000) % 60);
         setTimeLeft({ hours, minutes, seconds });
-        console.log("Time left:", { hours, minutes, seconds });
       }
     }, 1000);
 
