@@ -2,20 +2,21 @@
 import React, { useState } from "react";
 import "./App.css";
 import FocusFormPage from "./FocusFormPage";
-import CountdownTimer from "./CountdownTimer";
-import AirtableData from "./AirtableData";
-import SummaryBox from "./SummaryBox";
+import CountdownMain from "./TimerMain";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import FocusSessionButton from "./FocusSessionButton"; // Import the new component
+import FocusSessionButton from "./FocusSessionButton"; 
+import AppSummary from "./AppSummary";
+import AirtableData from "./AirtableData";
 
 function App() {
+  // using 'useState' to manage state in my functional component - initialize a state variable with an empty string and a function to update its value
   const [selectedTime, setSelectedTime] = useState("");
   const [timerEnded, setTimerEnded] = useState(false);
   const [ringing, setRinging] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const apiKey = import.meta.env.VITE_AIRTABLE_API_KEY;
 
-  const handleTimerStop = (elapsedTime) => {
+  const handleTimerStop = (actualTime) => {
     setTimerEnded(true);
     setRefreshKey((prevKey) => prevKey + 1);
   };
@@ -27,6 +28,8 @@ function App() {
   };
 
   return (
+    // using 'BrowserRouter' from 'react-router-dom' to enable routing
+    // inside 'Switch', define the different routes using the 'Route' component
     <Router>
       <div className="app-container">
         <div className="header">
@@ -36,6 +39,7 @@ function App() {
           <Route path="/focus-form">
             <FocusFormPage
               apiKey={apiKey}
+              // Lifting state: when form is  submitted, calls a function passed as a prop to update 'selectedTime' state in App component
               onSubmitSuccess={(duration) => {
                 setSelectedTime(duration);
                 setRefreshKey((prevKey) => prevKey + 1);
@@ -43,8 +47,9 @@ function App() {
             />
           </Route>
           <Route path="/countdown-timer">
-            <CountdownTimer
+            <CountdownMain
               selectedTime={selectedTime}
+              // Lifting state: when timer ends/ alarm stopped, calls functions passed as props to update state in App component
               onAlarmStop={handleStopAlarm}
               timerEnded={timerEnded}
               onTimerStop={handleTimerStop}
@@ -52,9 +57,9 @@ function App() {
             />
           </Route>
           <Route path="/">
-            <FocusSessionButton /> {/* Render the FocusSessionButton component */}
+            <FocusSessionButton /> 
             <div className="summary-airtable-wrapper">
-              <SummaryBox apiKey={apiKey} refreshKey={refreshKey} />
+              <AppSummary apiKey={apiKey} refreshKey={refreshKey} />
               <div className="airtable-wrapper">
                 <AirtableData apiKey={apiKey} />
               </div>

@@ -114,7 +114,7 @@ const AirtableData = ({ apiKey }) => {
               </div>
               <div className="type">Type: {record.fields.Type}</div>
               <div className="planned-time">Planned Time: {convertSecondsToHMMSS(record.fields.Duration)}</div>
-              <div className="actual-time">Actual Time Spent: {convertSecondsToHMMSS(record.fields.ElapsedTime)}</div>
+              <div className="actual-time">Actual Time Spent: {convertSecondsToHMMSS(record.fields.ActualTime)}</div>
               <div className="button-container2">
               <button className ="button1" onClick={() => handleDelete(record.id)}>Delete</button>
             

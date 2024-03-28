@@ -1,6 +1,6 @@
 import React from "react";
 
-const TimerDisplayComponent = ({ timeLeft }) => {
+const TimerDisplay= ({ timeLeft }) => {
   return (
     <div className="content">
       <div className="box">
@@ -25,4 +25,4 @@ const TimerDisplayComponent = ({ timeLeft }) => {
   );
 };
 
-export default TimerDisplayComponent;
+export default TimerDisplay;
