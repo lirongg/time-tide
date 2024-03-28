@@ -5,25 +5,90 @@
   align-items: center; /* Center the content horizontally */
 }
 
-h1 {
-  align-self: flex-start; /* Align h1 to the start (left) */
-}
-
-.content {
+.app-container {
   display: flex;
+  background: linear-gradient(60deg, #d3d3d3, #6eb1d6);
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Center the content horizontally */
+  height: 100vh; /* Set height to fill the viewport height */
+  overflow-y: auto; /* Allow vertical scrolling if content exceeds viewport height */
+  width: 100%;
 }
 
-.read-the-docs {
-  color: #888;
+
+.header h1 {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Use a modern sans-serif font */
+  font-size: 46px; /* Increase font size for emphasis */
+  color: #333; /* Dark color for readability */
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow for depth */
+  letter-spacing: 2px; /* Increase letter spacing for a stylish look */
+  margin-bottom: 20px; /* Add some spacing below the header */
 }
 
+.button-container {
+  width: 100%; /* Ensure the button container takes up the full width */
+  display: flex;
+  justify-content: center; /* Align button to the center */
+  margin-bottom: 0px;
+}
+
+.button {
+  background-color: #6eb1d6; /* Set background color */
+  color: #ffffff; /* Set text color */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px; /* Adjust font size */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  cursor: pointer; /* Add cursor pointer */
+}
+
+.button:hover {
+  background-color: #5a8c9e; /* Darken background color on hover */
+}
+
+.summary-box {
+  width: 100%; /* Ensure both components take up the full width */
+  border: none; /* Remove border */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+  margin-bottom: 30px; /* Add margin between the summary box and Airtable wrapper */
+  padding: 10px; /* Add padding */
+  background: linear-gradient(60deg, #d3d3d3, #6eb1d6); /* Set a complementary color with adjusted opacity */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    color: #333; /* Set text color */
+}
+
+.summary-box p {
+  text-align: center; /* Center text inside the summary box */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333; /* Set text color */
+}
+
+.summary-airtable-wrapper {
+  display: flex;
+  flex-direction: column; /* Display items in a column */
+  margin-bottom: 80px; /* Add margin at the bottom */
+  width: 90%;
+}
+ 
 .airtable-wrapper {
   width: 100%; /* Ensure both components take up the full width */
-  border: 1px solid #ccc;
+  border: none; /* Remove border */
   box-sizing: border-box; /* Include padding and border in the width calculation */
-  margin-bottom: 20px; 
+  margin-bottom: 30px; /* Add margin between the summary box and Airtable wrapper */
+  padding: 10px; /* Add padding */
+  background: linear-gradient(60deg, #d3d3d3, #6eb1d6); /* Set a complementary color with adjusted opacity */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card {
@@ -36,80 +101,56 @@ h1 {
   padding: 0;
 }
 
-.card li {
-  margin-bottom: 1em; /* Add spacing between list items */
+.subject,
+.type,
+.planned-time {
+  color: #333; /* Color for text elements */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
-.card li strong em {
-  font-style: italic;
-  font-weight: bold;
-}
-
-.card li strong {
-  font-weight: bold;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center the content horizontally */
-  height: 100vh; /* Set height to fill the viewport height */
-  overflow-y: auto; /* Allow vertical scrolling if content exceeds viewport height */
-  width: 100%;
-}
-
-
-
-.summary-airtable-wrapper {
-  display: flex;
-  flex-direction: column; /* Display items in a column */
-  margin-bottom: 80px; /* Add margin at the bottom */
-  width: 90%;
-}
-
-.summary-box p{
-  text-align: center; /* Center text inside the summary box */
-}
-
-h2 {
-  text-align: center;
-  font-weight: 500;
-}
-
-.summary-box {
-  width: 100%; /* Ensure both components take up the full width */
-  border: 1px solid #ccc;
-  box-sizing: border-box; /* Include padding and border in the width calculation */
-  margin-bottom: 20px; /* Add margin between the summary box and Airtable wrapper */
-}
-
-
-.main-content {
-  max-width: 1280px; /* Set maximum width */
-  width: 100%; /* Ensure the main content takes up the full width */
-  margin: 0px auto; /* Center main content */
-}
-
-.header {
-  width: 100%; /* Ensure the header takes up the full width */
-  display: flex;
-  justify-content: flex-start; /* Align header to the top left */
-  align-items: center;
+.actual-time {
+  color: #333; /* Color for text elements */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-bottom: 20px;
-  margin-left: 20px;
-  font-size: smaller;
 }
 
-.button-container {
+
+.start-time {
+  color: #333; /* Color for text elements */
+  margin-bottom: 5px; /* Add spacing between each line of text */
+  margin-top: 0;
+  font-weight:bold; /* Make the text bold */
+  font-style: italic; /* Make the text italic */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.button-container1 {
   width: 100%; /* Ensure the button container takes up the full width */
   display: flex;
   justify-content: center; /* Align button to the center */
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-.airtable-box {
-  display:flex;
-  margin-bottom: -50px;
-  margin-top: 0px;
+.button-container2 {
+  width: 100%; /* Ensure the button container takes up the full width */
+  display: flex;
+  margin-bottom: 0px;
 }
 
+.button1 {
+  background-color: #6eb1d6; /* Set background color */
+  color: #ffffff; /* Set text color */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px; /* Adjust font size */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  padding: 10px 20px; /* Add padding */
+  cursor: pointer; /* Add cursor pointer */
+}
+
+.button1:hover {
+  background-color: #5a8c9e; /* Darken background color on hover */
+}

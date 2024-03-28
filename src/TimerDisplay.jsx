@@ -7,19 +7,19 @@ const TimerDisplayComponent = ({ timeLeft }) => {
         <div className="value">
           <span>{timeLeft.hours || 0}</span>
         </div>
-        <span className="label">hours</span>
+        <span className="label">Hours</span>
       </div>
       <div className="box">
         <div className="value">
           <span>{timeLeft.minutes || 0}</span>
         </div>
-        <span className="label">minutes</span>
+        <span className="label">Minutes</span>
       </div>
       <div className="box">
         <div className="value">
           <span>{timeLeft.seconds || 0}</span>
         </div>
-        <span className="label">seconds</span>
+        <span className="label">Seconds</span>
       </div>
     </div>
   );

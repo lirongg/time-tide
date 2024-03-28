@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 const ElapsedTime = ({ apiKey, selectedTime, timeLeft, latestRecordId }) => {
+  console.log("Latest Record ID:", latestRecordId); 
   useEffect(() => {
 
     const convertDurationToSeconds = (duration) => {

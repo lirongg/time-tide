@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 
 function SummaryBox({ apiKey, refreshKey }) {
   const [records, setRecords] = useState([]);
@@ -23,30 +23,23 @@ function SummaryBox({ apiKey, refreshKey }) {
       );
       const data = await response.json();
       setRecords(data.records);
-
+  
+      // Calculate total planned time
       const totalDurationFromRecords = data.records.reduce((total, record) => {
         return total + record.fields.Duration;
       }, 0);
-
       setTotalDuration(totalDurationFromRecords);
-
-      // Calculate total elapsed time from records
+  
+      // Calculate total actual time
       const totalElapsedTimeFromRecords = data.records.reduce((total, record) => {
-        return total + record.fields.ElapsedTime;
+        return total + record.fields.ElapsedTime; // Assuming ElapsedTime represents the actual elapsed time
       }, 0);
       setElapsedTime(totalElapsedTimeFromRecords);
-
-      // Find the record with the latest createdTime
-      if (data.records.length > 0) {
-        const latestRecord = data.records.reduce((prev, current) =>
-          prev.createdTime > current.createdTime ? prev : current
-        );
-        setLatestRecordId(latestRecord.id);
-      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  
 
   // Function to convert total duration from seconds to h:mm:ss format
   const convertSecondsToHMMSS = (seconds) => {
@@ -57,6 +50,7 @@ function SummaryBox({ apiKey, refreshKey }) {
       remainingSeconds < 10 ? "0" : ""
     }${remainingSeconds}`;
   };
+
 
   return (
     <div className="summary-box">

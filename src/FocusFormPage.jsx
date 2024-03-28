@@ -12,23 +12,17 @@ const FocusFormPage = ({ apiKey, onSubmitSuccess }) => {
   const generateDurationOptions = () => {
     const options = [];
     for (let hours = 0; hours <= 12; hours++) {
-      for (let minutes = 0; minutes < 60; minutes++) {
-        for (let seconds = 0; seconds < 60; seconds += 5) {
-          // Include seconds starting from 0 and incrementing by 5
-          const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-          options.push(
-            <option
-              key={totalSeconds}
-              value={`${hours}:${minutes.toString().padStart(2, "0")}:${seconds
-                .toString()
-                .padStart(2, "0")}`}
-            >
-              {hours > 0 ? `${hours} hours` : ""}{" "}
-              {minutes > 0 ? `${minutes} minutes` : ""}{" "}
-              {seconds > 0 ? `${seconds} seconds` : ""}
-            </option>
-          );
-        }
+      for (let minutes = 1; minutes < 60; minutes++) { // Start from 1 minute
+        const totalSeconds = hours * 3600 + minutes * 60;
+        options.push(
+          <option
+            key={totalSeconds}
+            value={`${hours}:${minutes.toString().padStart(2, "0")}:00`}
+          >
+            {hours > 0 ? `${hours} hours` : ""}{" "}
+            {minutes} minutes
+          </option>
+        );
       }
     }
     return options;

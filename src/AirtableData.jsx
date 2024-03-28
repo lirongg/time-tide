@@ -98,30 +98,27 @@ const AirtableData = ({ apiKey }) => {
   return (
     <div className="airtable-data-container">
       <h2>Sessions</h2>
-      <div className="button-container">
-        <button onClick={handleDeleteAll}>Delete All Records</button>
+      <div className="button-container1">
+        <button className ="button1" onClick={handleDeleteAll}>Delete All Records</button>
       </div>
       <div className="card">
         <ul>
           {records.map((record) => (
             <li key={record.id}>
-              <div>
-                <strong>
-                  <em>
-                    {moment(record.createdTime).format(
+              <div className="start-time">
+                    Start Time: {moment(record.createdTime).format(
                       "Do MMMM YYYY, h:mm:ss a"
                     )}
-                  </em>
-                </strong>
               </div>
-              <div>
-                <strong>{record.fields.Title}</strong>
+              <div className="subject">Title: {record.fields.Title}
               </div>
-              <div>Type: {record.fields.Type}</div>
-              <div>{convertSecondsToHMMSS(record.fields.Duration)}</div>
-              <div>{convertSecondsToHMMSS(record.fields.ElapsedTime)}</div>
-              <button onClick={() => handleDelete(record.id)}>Delete</button>
-            </li>
+              <div className="type">Type: {record.fields.Type}</div>
+              <div className="planned-time">Planned Time: {convertSecondsToHMMSS(record.fields.Duration)}</div>
+              <div className="actual-time">Actual Time Spent: {convertSecondsToHMMSS(record.fields.ElapsedTime)}</div>
+              <div className="button-container2">
+              <button className ="button1" onClick={() => handleDelete(record.id)}>Delete</button>
+            
+            </div>  </li>
           ))}
         </ul>
       </div>

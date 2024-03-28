@@ -6,6 +6,7 @@ import "./styles.css";
 import TimerDisplay from "./TimerDisplay";
 import CountdownLogic from "./CountdownLogic";
 import ElapsedTime from "./ElapsedTime";
+import moment from "moment";
 
 const CountdownTimer = ({ apiKey, selectedTime, onAlarmStop, intervalId, onTimerStop }) => {
   const history = useHistory();
@@ -31,13 +32,23 @@ const CountdownTimer = ({ apiKey, selectedTime, onAlarmStop, intervalId, onTimer
         }
   
         console.log("Response:", response);
-        const latestId = response.data.records[0].id;
-        console.log("Latest Record ID:", latestId);
   
-        // Log the data received from the Airtable API
-        console.log("Data:", response.data);
+        // Sort records based on createdTime in descending order
+        const sortedRecords = response.data.records.sort((a, b) =>
+          moment(a.createdTime).isBefore(moment(b.createdTime)) ? 1 : -1
+        );
   
-        setLatestRecordId(latestId);
+        // Get the latest record (first element)
+        const latestRecord = sortedRecords[0];
+  
+        console.log("Latest Record:", latestRecord);
+  
+        // Set the latest record ID
+        if (latestRecord) {
+          setLatestRecordId(latestRecord.id);
+        } else {
+          console.error("No records found.");
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -45,6 +56,7 @@ const CountdownTimer = ({ apiKey, selectedTime, onAlarmStop, intervalId, onTimer
   
     fetchLatestRecordId();
   }, [apiKey]);
+  
 
   const handleStop = async () => {
     clearInterval(intervalId);
@@ -54,11 +66,10 @@ const CountdownTimer = ({ apiKey, selectedTime, onAlarmStop, intervalId, onTimer
 
   return (
     <div>
-      <h1>Countdown Timer</h1>
       <div className="countdown">
         <TimerDisplay timeLeft={timeLeft} />
         {ringing && <audio autoPlay loop src={alarmSound} />}
-        {timerEnded && <div>Time is up! </div>}
+        {timerEnded && <div className="timeup">Time is up! </div>}
         <button onClick={handleStop}>Stop</button>
       </div>
       <ElapsedTime apiKey={apiKey} selectedTime={selectedTime} timeLeft={timeLeft} latestRecordId={latestRecordId} />
