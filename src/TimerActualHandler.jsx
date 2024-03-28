@@ -48,7 +48,7 @@ const ActualTime = (props) => {
   const { apiKey, selectedTime, timeLeft, latestRecordId } = props;
 
   useEffect(() => {
-    fetchDataAndUpdateTime(props); // Call the function to fetch data and update time
+    TimerActualHandler(props); // Call the function to fetch data and update time
   }, [apiKey, selectedTime, timeLeft, latestRecordId]);
 
   return null;

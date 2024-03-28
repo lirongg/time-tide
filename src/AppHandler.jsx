@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import "./App.css";
 
-const AirtableData = ({ apiKey }) => {
+const AppHandler = ({ apiKey }) => {
   const [records, setRecords] = useState([]);
 
   useEffect(() => {
@@ -126,4 +126,4 @@ const AirtableData = ({ apiKey }) => {
   );
 };
 
-export default AirtableData;
+export default AppHandler;

@@ -5,7 +5,7 @@ import "./styles.css";
 import TimerDisplay from "./TimerDisplay";
 import TimerLogic from "./TimerLogic";
 import TimerActual from "./TimerActual";
-import FetchLatestRecordData from "./FetchLatestRecordData";
+import TimerFetchRecords from "./TimerFetchRecords";
 
 
 const TimerMain = ({ apiKey, selectedTime, onAlarmStop, intervalId, onTimerStop }) => {
@@ -31,7 +31,7 @@ const TimerMain = ({ apiKey, selectedTime, onAlarmStop, intervalId, onTimerStop 
         {timerEnded && <div className="timeup">Time is up! </div>}
         <button onClick={handleStop}>Stop</button>
       </div>
-      <FetchLatestRecordData apiKey={apiKey} onLatestRecordId={handleLatestRecordId} />
+      <TimerFetchRecords apiKey={apiKey} onLatestRecordId={handleLatestRecordId} />
       <TimerActual apiKey={apiKey} selectedTime={selectedTime} timeLeft={timeLeft} latestRecordId={latestRecordId} />
     </div>
   );

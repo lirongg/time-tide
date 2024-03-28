@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 
-const FetchLatestRecordData = ({ apiKey, onLatestRecordId }) => {
+const TimerFetchRecords = ({ apiKey, onLatestRecordId }) => {
   const [latestRecordId, setLatestRecordId] = useState(null);
 
   useEffect(() => {
@@ -47,4 +47,4 @@ const FetchLatestRecordData = ({ apiKey, onLatestRecordId }) => {
   return null;
 };
 
-export default FetchLatestRecordData;
+export default TimerFetchRecords;

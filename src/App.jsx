@@ -6,7 +6,7 @@ import CountdownMain from "./TimerMain";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import FocusSessionButton from "./FocusSessionButton"; 
 import AppSummary from "./AppSummary";
-import AirtableData from "./AirtableData";
+import AppHandler from "./AppHandler";
 
 function App() {
   // using 'useState' to manage state in my functional component - initialize a state variable with an empty string and a function to update its value
@@ -61,7 +61,7 @@ function App() {
             <div className="summary-airtable-wrapper">
               <AppSummary apiKey={apiKey} refreshKey={refreshKey} />
               <div className="airtable-wrapper">
-                <AirtableData apiKey={apiKey} />
+                <AppHandler apiKey={apiKey} />
               </div>
             </div>
           </Route>
