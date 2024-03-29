@@ -21,6 +21,9 @@ const TimerActualHandler = async ({
       const remainingTimeInSeconds =
         timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
       const actualSeconds = selectedDurationInSeconds - remainingTimeInSeconds;
+      if (actualSeconds < 0) {
+        actualSeconds = 0;
+      }
       return actualSeconds;
     };
 

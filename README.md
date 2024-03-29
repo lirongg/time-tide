@@ -30,7 +30,6 @@ Technology Stack:
 
 Frontend: React.js
 Routing: react-router-dom
-State Management: useState hook
 Backend: Airtable API
 Styling: CSS
 

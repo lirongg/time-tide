@@ -1,12 +1,11 @@
-// App.jsx
 import React, { useState } from "react";
-import "./App.css";
-import FocusFormPage from "./FocusFormPage";
-import CountdownMain from "./TimerMain";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import FocusSessionButton from "./FocusSessionButton"; 
+import "./App.css";
 import AppSummary from "./AppSummary";
 import AppHandler from "./AppHandler";
+import FocusSessionButton from "./FocusSessionButton"; 
+import FocusFormPage from "./FocusFormPage";
+import CountdownMain from "./TimerMain";
 
 function App() {
   // using 'useState' to manage state in my functional component - initialize a state variable with an empty string and a function to update its value
